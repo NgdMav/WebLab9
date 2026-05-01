@@ -12,6 +12,21 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use((req, res, next) => {
+    const url = req.url;
+    if (url.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+    } else if (url.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+    } else if (url.endsWith('.html')) {
+        res.setHeader('Content-Type', 'text/html');
+    }
+    next();
+});
+
+// Статические файлы
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
