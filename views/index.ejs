@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="landing-container">
+        <div class="landing-card">
+            <h1>Словарная игра</h1>
+            <div class="game-description">
+                <h2>Правила игры:</h2>
+                <ul>
+                    <li>Игроки по очереди называют слова на заданную букву</li>
+                    <li>Слова должны быть существительными в именительном падеже</li>
+                    <li>За каждое слово начисляются очки = длине слова</li>
+                    <li>На ход даётся 30 секунд</li>
+                    <li>Повторять слова нельзя</li>
+                    <li>Побеждает игрок, набравший больше очков</li>
+                </ul>
+            </div>
+            <div class="join-form">
+                <input type="text" id="playerName" placeholder="Введите ваше имя" maxlength="20">
+                <button onclick="joinGame()" class="btn-primary">Присоединиться к игре</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function joinGame() {
+            const name = document.getElementById('playerName').value.trim();
+            if (name === '') {
+                alert('Пожалуйста, введите ваше имя');
+                return;
+            }
+            localStorage.setItem('playerName', name);
+            window.location.href = '/game';
+        }
+
+        document.getElementById('playerName').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') joinGame();
+        });
+    </script>
+</body>
+</html>
